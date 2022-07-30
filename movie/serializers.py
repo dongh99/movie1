@@ -1,14 +1,19 @@
 from rest_framework import serializers
 from dataclasses import field
-from .models import Movie
+from .models import *
 
 class HomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ['title_kor','poster_url']
 
-class DetailSerializer(serializers.ModelSerializer):
+class MovieDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['title_eng', 'rating_aud','rating_cri','genre','showtimes','release_date','rate','summary','name','role','image_url']
+        fields = ['title_eng', 'rating_aud','rating_cri','genre','showtimes','release_date','rate','summary']
+
+class StaffDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Staff
+        fields = ['name','role','image_url']
     
