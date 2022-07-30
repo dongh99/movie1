@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from django.http import HttpResponse
 from django.core.paginator import Paginator
-from .serializers import HomeSerializer, MovieDetailSerializer, StaffDetailSerializer
+from .serializers import *
 from rest_framework.response import Response
 
 
@@ -59,11 +59,8 @@ def home(request):
 
 @api_view(['GET'])
 def detail(request, pk):
-    try:
-        movie = Movie.objects.get(pk=pk)
-        #staff = Staff.objects.get(pk=pk)
-        serializer1 = MovieDetailSerializer(movie)
-        #serializer2 = StaffDetailSerializer(staff)
-        return Response(serializer1.data)
-    except Staff.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    movie = Movie.objects.get(pk=pk)
+    staff = Staff.objects.filter(movie_id=pk)
+    serializer2 = StaffDetailSerializer(staff, many=True)
+    serializer1 = MovieDetailSerializer(movie)
+    return Response([serializer2.data,  serializer1.data])

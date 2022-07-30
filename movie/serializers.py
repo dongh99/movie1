@@ -15,5 +15,5 @@ class MovieDetailSerializer(serializers.ModelSerializer):
 class StaffDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Staff
-        fields = ['name','role','image_url']
+        fields = ['movie', 'name','role','image_url']
     
